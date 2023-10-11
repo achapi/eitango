@@ -2028,19 +2028,36 @@ tango = [
 	['2027', 'lest', '～しないように']
 ];
 
-var Number;
-var English;
-var Japanese;
+var number;
+var english;
+var japanese;
+var count = 0;
+var correct = 0;
+
+function start(){
+	count = 0;
+	correct = 0;
+	make();
+}
 
 function make() {
+	count++;
 	var jp = document.getElementById("jp");
 	var ans = document.getElementById("ans");
-	var quiz = tango[Math.floor(Math.random() * tango.length)];
-	Number = quiz[0];
-	English = quiz[1];
-	Japanese = quiz[2];
-	jp.innerText = Number + ' ' + Japanese + "\n最初の文字は " + English[0];
-	ans.innerText = English;
+	var l = Number(document.getElementById("l").value);
+	var r = Number(document.getElementById("r").value);
+	if (l < 1 || r > 2027 || l > r){
+		document.getElementById("l").value = "1";
+		document.getElementById("r").value = "2027";
+		l = 1;
+		r = 2027;
+	}
+	var quiz = tango[Math.floor(Math.random() * (r - l + 1)) + l - 1];
+	number = quiz[0];
+	english = quiz[1];
+	japanese = quiz[2];
+	jp.innerText = number + ' ' + japanese + "\n最初の文字は " + english[0];
+	ans.innerText = english;
 	var form = document.getElementById("judge");
 	form.value = "";
 }
@@ -2048,12 +2065,13 @@ function make() {
 function judge() {
 	var ans = document.getElementById("judge").value;
 	var res = document.getElementById("result");
-	if (ans == English){
-		res.innerText　= "正解\n" + Japanese + " " + English;
+	var per = document.getElementById("percent");
+	if (ans == english){
+		correct++;
+		res.innerText　= "正解\n\n" + number + ' ' + japanese + " " + english;
 	} else {
-		res.innerText　= "不正解\n" + Japanese + " " + English;
+		res.innerText　= "不正解\n\n" + number + ' ' + japanese + " " + english + "\n\nあなたの解答: " + ans;
 	}
+	per.innerText = "正答率: " + correct + "/" + count + " (" + correct / count * 100 + "%)";
 	make();
 }
-
-make();

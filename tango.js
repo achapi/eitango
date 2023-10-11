@@ -2039,7 +2039,7 @@ function make() {
 	Number = quiz[0];
 	English = quiz[1];
 	Japanese = quiz[2];
-	jp.innerText = Number + ' ' + Japanese;
+	jp.innerText = Number + ' ' + Japanese + "\n最初の文字は " + English[0];
 	ans.innerText = English;
 	var form = document.getElementById("judge");
 	form.value = "";
@@ -2048,12 +2048,12 @@ function make() {
 function judge() {
 	var ans = document.getElementById("judge").value;
 	var res = document.getElementById("result");
-	console.log(ans);
-	console.log(English);
 	if (ans == English){
-		res.innerText　= "正解\n" + English;
+		res.innerText　= "正解\n" + Japanese + " " + English;
 	} else {
-		res.innerText　= "不正解\n" + English;
+		res.innerText　= "不正解\n" + Japanese + " " + English;
 	}
+	make();
 }
 
+make();

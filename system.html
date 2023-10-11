@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>シス単ランダムテスト</title>
+</head>
+<body>
+	<h1>シス単テスト</h1>
+	<p>
+		出題範囲 <input value="1" type="number" style="width:50px;" id="l">～<input value="2027" type="number" style="width:50px;" id="r">
+	</p>
+	<p></p>
+	<p id="percent">
+		<input type="button" value="始める" onclick="start()">
+		正答率
+	</p>
+	<div id="ans" hidden>答え</div>
+	<p id="jp">ここに日本語が入る</p>
+	<input placeholder="ここに答えを入力" id="judge">
+	<input type="button" value="判定" onclick="judge()">
+	<p id="result">判定結果</p>
+	<script src="system.js"></script>
+</body>
+</html>

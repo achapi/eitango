@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+	body {
+		font-family: 'Arial', sans-serif;
+	}
+
+	.quiz-container {
+		max-width: 600px;
+		padding: 20px;
+		border: 1px solid #ccc;
+		border-radius: 8px;
+		background-color: #f9f9f9;
+	}
+
+	.question {
+		font-size: 18px;
+		margin-bottom: 15px;
+	}
+
+	.options {
+		list-style-type: none;
+		padding: 0;
+		display: block;
+	}
+
+	.option {
+		text-align: center;
+		margin: 8px 0;
+	}
+
+	.answer-btn,
+	.unknown-btn {
+		display: block;
+		width: 100%;
+		padding: 15px;
+		font-size: 20px;
+		cursor: pointer;
+		margin-bottom: 10px;
+		background-color: #4CAF50;
+		color: white;
+		border: none;
+		border-radius: 5px;
+	}
+
+	.unknown-btn {
+		background-color: #e74c3c;
+	}
+	</style>
+	<title>鉄壁4択テスト</title>
+</head>
+<body>
+	<h1>鉄壁クイズ</h1>
+	<p>
+		出題範囲 <input value="1" type="number" style="width:50px;" id="l">～<input value="2176" type="number" style="width:50px;" id="r">
+	</p>
+	<p></p>
+	<p id="percent">
+		<input type="button" value="始める" onclick="start()">
+		正答率
+	</p>
+	<div class="quiz-container">
+		<div class="question" id="jp">正解だと思う単語を選んでください。</div>
+		<ul class="options">
+		<li class="option"><button class="answer-btn" onclick="checkAnswer(this)" id="ans1"></button></li>
+		<li class="option"><button class="answer-btn" onclick="checkAnswer(this)" id="ans2"></button></li>
+		<li class="option"><button class="answer-btn" onclick="checkAnswer(this)" id="ans3"></button></li>
+		<li class="option"><button class="answer-btn" onclick="checkAnswer(this)" id="ans4"></button></li>
+		<li class="option"><button class="unknown-btn" onclick="unknownAnswer()">分からない</button></li>
+		</ul>
+	</div>
+
+	<script src="teppeki_game.js"></script>
+
+	</body>
+</html>

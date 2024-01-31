@@ -53,9 +53,10 @@
 	<title>シス単4択テスト</title>
 </head>
 <body>
-	<h3>シス単クイズ</h3>
+	<p><strong>シス単クイズ</strong></h4>
 	<p>
 		出題範囲 <input value="1" type="number" style="width:50px;" id="l">～<input value="2027" type="number" style="width:50px;" id="r">
+		<input type="radio" name="yaku" value="j2e" checked />日→英<input type="radio" name="yaku" value="e2j">英→日
 	</p>
 	<p id="percent">
 		<input type="button" value="始める" onclick="start()">
@@ -73,6 +74,5 @@
 	</div>
 
 	<script src="system_game.js"></script>
-
 	</body>
 </html>

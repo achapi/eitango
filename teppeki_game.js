@@ -2177,23 +2177,4 @@ tango = [
 	['2176', 'mischief', 'いたずら、悪さ'],
 ];
 
-function setCookie(cookieName, cookieValue){
-	document.cookie = cookieName + "=" + cookieValue + ";";
-	console.log(document.cookie); 
-}
-function getCookie(cookieName){
-	var cookies = document.cookie.split('; ');
-	for(var i=0; i < cookies.length; i++ ){
-		var cookie = cookies[i].trim().split('=');
-		if(cookie[0] == cookieName ){
-			return cookie[1];
-		}
-	}
-	return "";
-}
-
-var incorrect = getCookie("incorrect_tep").split(',');
-if (incorrect.length == 1){
-	setCookie("incorrect_sys", Array(tango.length).fill(true).join(','));
-	incorrect = Array(tango.length).fill(true);
-}
+var TANGO = "tep";

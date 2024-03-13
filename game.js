@@ -6,8 +6,19 @@ var correct = 0;
 const OPTION_SIZE = 4;
 var quiz_list = [];
 
+var corrects = localStorage.getItem("corrects_" + TANGO);
+if (corrects == null){
+	localStorage.setItem("corrects_" + TANGO, Array(tango.length).fill(true).join(","));
+	corrects = Array(tango.length).fill(true);
+} else {
+	corrects = corrects.split(",");
+}
+
+function set_corrects(){
+	localStorage.setItem("corrects_" + TANGO, corrects.join(","));
+}
+
 function start() {
-	count = 0;
 	var l = Number(document.getElementById("l").value);
 	var r = Number(document.getElementById("r").value);
 	quiz_list = [];
@@ -18,7 +29,7 @@ function start() {
 		r = tango.length;
 	}
 	for (var i = l; i <= r; i++){
-		if (document.getElementsByName("mode")[0].checked || !incorrect[i - 1]){
+		if (document.getElementsByName("mode")[0].checked || !corrects[i - 1]){
 			quiz_list.push(i - 1);
 		}
 	}
@@ -36,7 +47,6 @@ function start() {
 }
 
 function make() {
-	count++;
 	var jp = document.getElementById("jp");
 	var l = Number(document.getElementById("l").value);
 	var r = Number(document.getElementById("r").value);
@@ -82,14 +92,14 @@ function make() {
 }
 
 function checkAnswer(btn) {
-	if (count == 0){
-		return;
-	}
 	if (btn.textContent === english){
-		incorrect[number - 1] = false;
+		corrects[number - 1] = true;
+		set_corrects();
 		alert("◯正解\n" + "No." + number + ' ' + japanese + "\n" + english);
 		correct++;
 	} else {
+		corrects[number - 1] = false;
+		set_corrects();
 		alert("✕不正解\n" + "No." + number + ' ' + japanese + "\n" + english);
 	}
 	var per = document.getElementById("percent");
@@ -99,12 +109,18 @@ function checkAnswer(btn) {
 }
 
 function unknownAnswer() {
-	if (count == 0){
-		return;
-	}
+	corrects[number - 1] = false;
+	set_corrects();
 	alert("No." + number + ' ' + japanese + "\n" + english);
 	var per = document.getElementById("percent");
 	per.innerText = "正答率: " + correct + "/" + count + " (" + Math.round(correct / count * 100 * 100) / 100 + "%)";
 	document.getElementById("startbutton").value = "リセット";
 	make();
+}
+
+function reset(){
+	if (window.confirm("進捗状況をリセットしますか？")){
+		localStorage.setItem("corrects_" + TANGO, Array(tango.length).fill(true).join(","));
+		corrects = Array(tango.length).fill(true);
+	}
 }

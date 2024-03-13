@@ -7,16 +7,35 @@ const OPTION_SIZE = 4;
 var quiz_list = [];
 
 var corrects = localStorage.getItem("corrects_" + TANGO);
+
+// 0: 未解答
+// 1: 正解
+// 2: 不正解
 if (corrects == null){
-	localStorage.setItem("corrects_" + TANGO, Array(tango.length).fill(true).join(","));
-	corrects = Array(tango.length).fill(true);
+	localStorage.setItem("corrects_" + TANGO, Array(tango.length).fill(0).join(","));
+	corrects = Array(tango.length).fill(0);
 } else {
 	corrects = corrects.split(",");
 }
 
 function set_corrects(){
 	localStorage.setItem("corrects_" + TANGO, corrects.join(","));
+	var x = 0, o = 0, n = 0;
+	for (const i of corrects){
+		if (i == "0"){
+			n++;
+		}
+		if (i == "1"){
+			o++;
+		}
+		if (i == "2"){
+			x++;
+		}
+	}
+	document.getElementById("progress").innerText = "進捗状況\n正解: " + o + "　不正解: " + x + "　未解答: " + n;
 }
+
+set_corrects();
 
 function start() {
 	var l = Number(document.getElementById("l").value);
@@ -29,7 +48,9 @@ function start() {
 		r = tango.length;
 	}
 	for (var i = l; i <= r; i++){
-		if (document.getElementsByName("mode")[0].checked || !corrects[i - 1]){
+		if ((document.getElementsByName("mode")[0].checked) ||
+			(document.getElementsByName("mode")[1].checked && corrects[i - 1] == "2") ||
+			(document.getElementsByName("mode")[2].checked && corrects[i - 1] == "0")){
 			quiz_list.push(i - 1);
 		}
 	}
@@ -39,8 +60,14 @@ function start() {
 	}
 	correct = 0;
 	count = quiz_list.length;
+	var per = document.getElementById("percent");
+	per.innerText = "正答率: " + correct + "/" + count + " (" + Math.round(correct / count * 100 * 100) / 100 + "%)";
 	if (count == 0){
-		alert("不正解の問題が存在しません。")
+		if (document.getElementsByName("mode")[1].checked){
+			alert("不正解の問題が存在しません。")
+		} else {
+			alert("未解答の問題が存在しません。")
+		}
 		return;
 	}
 	make();
@@ -92,13 +119,16 @@ function make() {
 }
 
 function checkAnswer(btn) {
+	if (count == 0){
+		return;
+	}
 	if (btn.textContent === english){
-		corrects[number - 1] = true;
+		corrects[number - 1] = "1";
 		set_corrects();
 		alert("◯正解\n" + "No." + number + ' ' + japanese + "\n" + english);
 		correct++;
 	} else {
-		corrects[number - 1] = false;
+		corrects[number - 1] = "2";
 		set_corrects();
 		alert("✕不正解\n" + "No." + number + ' ' + japanese + "\n" + english);
 	}
@@ -109,7 +139,10 @@ function checkAnswer(btn) {
 }
 
 function unknownAnswer() {
-	corrects[number - 1] = false;
+	if (count == 0){
+		return;
+	}
+	corrects[number - 1] = "2";
 	set_corrects();
 	alert("No." + number + ' ' + japanese + "\n" + english);
 	var per = document.getElementById("percent");
@@ -120,7 +153,8 @@ function unknownAnswer() {
 
 function reset(){
 	if (window.confirm("進捗状況をリセットしますか？")){
-		localStorage.setItem("corrects_" + TANGO, Array(tango.length).fill(true).join(","));
-		corrects = Array(tango.length).fill(true);
+		localStorage.setItem("corrects_" + TANGO, Array(tango.length).fill(0).join(","));
+		corrects = Array(tango.length).fill(0);
 	}
+	set_corrects();
 }

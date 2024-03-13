@@ -59,15 +59,17 @@
 	<details><div class="quiz-container">
 		<summary>詳細設定</summary>
 		<p>出題範囲 <input value="1" type="number" style="width:50px;" id="l">～<input value="2027" type="number" style="width:50px;" id="r"></p>
-		訳: 　　<input type="radio" name="yaku" value="j2e" checked />日→英　　
+		訳:<br>
+		<input type="radio" name="yaku" value="j2e" checked />日→英<br>
 		<input type="radio" name="yaku" value="e2j">英→日
 		<br>
-		モード: <input type="radio" name="mode" value="all" checked />全問題　　
-		<input type="radio" name="mode" value="inc">不正解のみ
+		モード:<br>
+		<input type="radio" name="mode" value="all" checked />全問題<br>
+		<input type="radio" name="mode" value="inc">不正解のみ<br>
+		<input type="radio" name="mode" value="none">未解答のみ
 		<br>
-		<br>
+		<p id="progress">進捗状況</p>
 		<input type="button" value="進捗状況をリセット" onclick="reset()">
-		
 	</div></details>
 	<p id="start">
 		<input type="button" value="始める" onclick="start()" id="startbutton"><lavel id="percent"></lavel>

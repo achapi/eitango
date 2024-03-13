@@ -2027,3 +2027,25 @@ tango = [
 	['2026', 'predominantly', '主に'],
 	['2027', 'lest', '～しないように']
 ];
+
+function setCookie(cookieName, cookieValue){
+	document.cookie = cookieName + "=" + cookieValue + ";";
+	console.log(document.cookie); 
+}
+function getCookie(cookieName){
+	var cookies = document.cookie.split('; ');
+	for(var i=0; i < cookies.length; i++ ){
+		var cookie = cookies[i].trim().split('=');
+		if(cookie[0] == cookieName ){
+			return cookie[1];
+		}
+	}
+	return "";
+}
+
+var incorrect = getCookie("incorrect_sys").split(',');
+var sta = Array(tango.length).fill(true);
+if (incorrect == ""){
+	setCookie("incorrect_sys", sta.join(','));
+	incorrect = sta;
+}

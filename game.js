@@ -3,17 +3,33 @@ var english;
 var japanese;
 var count = 0;
 var correct = 0;
+const OPTION_SIZE = 4;
+var quiz_list = [];
 
 function start() {
 	count = 0;
+	var l = Number(document.getElementById("l").value);
+	var r = Number(document.getElementById("r").value);
+	quiz_list = [];
+	if (l < 1 || r > tango.length || l > r) {
+		document.getElementById("l").value = 1;
+		document.getElementById("r").value = tango.length;
+		l = 1;
+		r = tango.length;
+	}
+	for (var i = l; i <= r; i++){
+		if (document.getElementsByName("mode")[1].checked && incorrect[i - 1]){
+			quiz_list.push(i - 1);
+		}
+	}
+	for (var i = quiz_list.length; 1 < i; i--) {
+		k = Math.floor(Math.random() * i);
+		[quiz_list[k], quiz_list[i - 1]] = [quiz_list[i - 1], quiz_list[k]];
+	}
 	correct = 0;
-	var per = document.getElementById("percent");
-	per.innerText = "";
+	count = quiz_list.length;
 	make();
 }
-
-const OPTION_SIZE = 4;
-var quiz_list = [];
 
 function make() {
 	count++;
@@ -22,7 +38,7 @@ function make() {
 	var r = Number(document.getElementById("r").value);
 	var f = 0;
 	if (document.getElementsByName("yaku")[1].checked){
-		f++;
+		f = 1;
 	}
 	if (l < 1 || r > tango.length || l > r) {
 		document.getElementById("l").value = 1;
@@ -31,20 +47,16 @@ function make() {
 		r = tango.length;
 	}
 	if (quiz_list.length == 0){
-		for (var i = l; i <= r; i++){
-			quiz_list.push(i - 1);
-		}
-	}
-	for (var i = quiz_list.length; 1 < i; i--) {
-		k = Math.floor(Math.random() * i);
-		[quiz_list[k], quiz_list[i - 1]] = [quiz_list[i - 1], quiz_list[k]];
+		alert("一周しました。リセットします。")
+		start();
+		return;
 	}
 	var ans_n = quiz_list.pop();
 	var quiz = tango[ans_n];
 	var c = [];
 	c.push(ans_n);
 	while (c.length < OPTION_SIZE){
-		var k = Math.floor(Math.random() * (r - l + 1)) + l - 1;
+		var k = Math.floor(Math.random() * tango.length) + l;
 		if (c.indexOf(k) === -1){
 			c.push(k);
 		}
@@ -67,7 +79,6 @@ function make() {
 
 function checkAnswer(btn) {
 	if (count == 0){
-		make();
 		return;
 	}
 	if (btn.textContent === english){
@@ -84,7 +95,6 @@ function checkAnswer(btn) {
 
 function unknownAnswer() {
 	if (count == 0){
-		make();
 		return;
 	}
 	alert("No." + number + ' ' + japanese + "\n" + english);

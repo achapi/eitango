@@ -2176,3 +2176,25 @@ tango = [
 	['2175', 'warrant', '～を保証する； 正当化する'],
 	['2176', 'mischief', 'いたずら、悪さ'],
 ];
+
+function setCookie(cookieName, cookieValue){
+	document.cookie = cookieName + "=" + cookieValue + ";";
+	console.log(document.cookie); 
+}
+function getCookie(cookieName){
+	var cookies = document.cookie.split('; ');
+	for(var i=0; i < cookies.length; i++ ){
+		var cookie = cookies[i].trim().split('=');
+		if(cookie[0] == cookieName ){
+			return cookie[1];
+		}
+	}
+	return "";
+}
+
+var incorrect = getCookie("incorrect_tep").split(',');
+var sta = Array(tango.length).fill(true);
+if (incorrect == ""){
+	setCookie("incorrect_tep", sta.join(','));
+	incorrect = sta;
+}

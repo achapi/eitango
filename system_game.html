@@ -58,9 +58,8 @@
 		出題範囲 <input value="1" type="number" style="width:50px;" id="l">～<input value="2027" type="number" style="width:50px;" id="r">
 		<input type="radio" name="yaku" value="j2e" checked />日→英<input type="radio" name="yaku" value="e2j">英→日
 	</p>
-	<p id="percent">
-		<input type="button" value="始める" onclick="start()">
-		
+	<p id="start">
+		<input type="button" value="始める" onclick="start()" id="startbutton"><lavel id="percent"></lavel>
 	</p>
 	<div class="quiz-container">
 		<div class="question" id="jp">始めるボタンを押してください。</div>
@@ -74,5 +73,6 @@
 	</div>
 
 	<script src="system_game.js"></script>
+	<script src="game.js"></script>
 	</body>
 </html>

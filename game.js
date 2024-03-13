@@ -18,7 +18,7 @@ function start() {
 		r = tango.length;
 	}
 	for (var i = l; i <= r; i++){
-		if (document.getElementsByName("mode")[1].checked && incorrect[i - 1]){
+		if (document.getElementsByName("mode")[1].checked && !incorrect[i - 1]){
 			quiz_list.push(i - 1);
 		}
 	}
@@ -28,6 +28,10 @@ function start() {
 	}
 	correct = 0;
 	count = quiz_list.length;
+	if (count == 0){
+		alert("不正解の問題が存在しません。")
+		return;
+	}
 	make();
 }
 
@@ -82,6 +86,7 @@ function checkAnswer(btn) {
 		return;
 	}
 	if (btn.textContent === english){
+		incorrect[number - 1] = false;
 		alert("◯正解\n" + "No." + number + ' ' + japanese + "\n" + english);
 		correct++;
 	} else {

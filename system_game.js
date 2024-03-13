@@ -2045,7 +2045,7 @@ function getCookie(cookieName){
 
 var incorrect = getCookie("incorrect_sys").split(',');
 var sta = Array(tango.length).fill(true);
-if (incorrect == ""){
+if (incorrect.length == 1){
 	setCookie("incorrect_sys", sta.join(','));
 	incorrect = sta;
 }

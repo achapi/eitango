@@ -18,7 +18,7 @@ function start() {
 		r = tango.length;
 	}
 	for (var i = l; i <= r; i++){
-		if (document.getElementsByName("mode")[1].checked && !incorrect[i - 1]){
+		if (document.getElementsByName("mode")[0].checked || !incorrect[i - 1]){
 			quiz_list.push(i - 1);
 		}
 	}

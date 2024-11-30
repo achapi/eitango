@@ -97,7 +97,7 @@ function make() {
 	var c = [];
 	c.push(ans_n);
 	while (c.length < OPTION_SIZE){
-		var k = Math.floor(Math.random() * tango.length) + l;
+		var k = Math.floor(Math.random() * (r - l + 1)) + l;
 		if (c.indexOf(k) === -1){
 			c.push(k);
 		}
@@ -107,6 +107,7 @@ function make() {
 		[c[k], c[i - 1]] = [c[i - 1], c[k]];
 	}
 	for (var i = 1; i <= OPTION_SIZE; i++){
+		console.log(c[i - 1], tango[c[i - 1]]);
 		document.getElementById("ans" + i).innerText = tango[c[i - 1]][1 + f];
 	}
 	number = quiz[0];

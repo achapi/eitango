@@ -114,9 +114,9 @@ function make() {
 	english = quiz[1];
 	japanese = quiz[2];
 	if (f == 1){
-		const utterance = new SpeechSynthesisUtterance(english);
-		utterance.lang = 'en-US';
-		speechSynthesis.speak(utterance);
+		//const utterance = new SpeechSynthesisUtterance(english);
+		//utterance.lang = 'en-US';
+		//speechSynthesis.speak(utterance);
 		[english, japanese] = [japanese, english];
 	}
 	jp.innerText = "No." + number + '\n' + japanese;
